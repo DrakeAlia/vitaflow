@@ -10,7 +10,20 @@ import {
   CardHeader,
   CardFooter,
 } from "@/components/ui/card";
-import { Clock, Heart, Beaker, ArrowRight, Star, Users } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Clock,
+  Heart,
+  Beaker,
+  ArrowRight,
+  Star,
+  Users,
+  Calendar,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -120,9 +133,52 @@ const HomePage = () => {
                   className="flex flex-col sm:flex-row gap-4"
                   variants={fadeInSlideUp}
                 >
-                  <Button size="lg" className="w-full h-12 text-lg">
-                    Book Consultation
-                  </Button>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button size="lg" className="w-full h-12 text-lg">
+                        Book Consultation
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-80">
+                      <div className="grid gap-4">
+                        <div className="space-y-2">
+                          <h4 className="font-medium leading-none">
+                            Schedule Your Consultation
+                          </h4>
+                          <p className="text-sm text-muted-foreground">
+                            Choose your preferred consultation type and time
+                          </p>
+                        </div>
+                        <div className="grid gap-2">
+                          <div className="grid grid-cols-2 gap-2">
+                            <Button
+                              variant="outline"
+                              className="justify-start hover:bg-primary/10 hover:text-primary transition-colors"
+                            >
+                              <Calendar className="mr-2 h-4 w-4" />
+                              In-Person
+                            </Button>
+                            <Button variant="outline" className="justify-start">
+                              Virtual
+                            </Button>
+                          </div>
+                          <div className="grid grid-cols-3 gap-2">
+                            <Button variant="outline" className="justify-start">
+                              Today
+                            </Button>
+                            <Button variant="outline" className="justify-start">
+                              Tomorrow
+                            </Button>
+                            <Button variant="outline" className="justify-start">
+                              Next Week
+                            </Button>
+                          </div>
+                          <Button className="w-full">Continue Booking</Button>
+                        </div>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
                   <Button
                     size="lg"
                     variant="outline"
@@ -316,13 +372,55 @@ const HomePage = () => {
                     </p>
                   </TabsContent>
                 </Tabs>
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto h-12 text-lg group"
-                >
-                  Schedule Consultation
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      size="lg"
+                      className="w-full sm:w-auto h-12 text-lg group"
+                    >
+                      Schedule Consultation
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80">
+                    <div className="grid gap-4">
+                      <div className="space-y-2">
+                        <h4 className="font-medium leading-none">
+                          Schedule Your Consultation
+                        </h4>
+                        <p className="text-sm text-muted-foreground">
+                          Choose your preferred consultation type and time
+                        </p>
+                      </div>
+                      <div className="grid gap-2">
+                        <div className="grid grid-cols-2 gap-2">
+                          <Button
+                            variant="outline"
+                            className="justify-start hover:bg-primary/10 hover:text-primary transition-colors"
+                          >
+                            <Calendar className="mr-2 h-4 w-4" />
+                            In-Person
+                          </Button>
+                          <Button variant="outline" className="justify-start">
+                            Virtual
+                          </Button>
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                          <Button variant="outline" className="justify-start">
+                            Today
+                          </Button>
+                          <Button variant="outline" className="justify-start">
+                            Tomorrow
+                          </Button>
+                          <Button variant="outline" className="justify-start">
+                            Next Week
+                          </Button>
+                        </div>
+                        <Button className="w-full">Continue Booking</Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

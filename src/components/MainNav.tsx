@@ -7,7 +7,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { MoonIcon, SunIcon, Menu } from "lucide-react";
+import { MoonIcon, SunIcon, Menu, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import {
@@ -17,22 +17,62 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const NavItems = () => (
   <>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400">
+    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
       Home
     </NavigationMenuLink>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400">
+    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
       Services
     </NavigationMenuLink>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400">
+    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
       About
     </NavigationMenuLink>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400">
+    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
       Contact
     </NavigationMenuLink>
   </>
+);
+
+const BookingPopover = () => (
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+        Book Now
+      </Button>
+    </PopoverTrigger>
+    <PopoverContent className="w-80">
+      <div className="grid gap-4">
+        <div className="space-y-2">
+          <h4 className="font-medium leading-none">Book a Consultation</h4>
+          <p className="text-sm text-muted-foreground">
+            Choose a service and preferred time slot
+          </p>
+        </div>
+        <div className="grid gap-2">
+          <div className="grid grid-cols-3 gap-2">
+            <Button variant="outline" className="justify-start">
+              <Calendar className="mr-2 h-4 w-4" />
+              Today
+            </Button>
+            <Button variant="outline" className="justify-start">
+              Tomorrow
+            </Button>
+            <Button variant="outline" className="justify-start">
+              Next Week
+            </Button>
+          </div>
+          <Button className="w-full">Continue Booking</Button>
+        </div>
+      </div>
+    </PopoverContent>
+  </Popover>
 );
 
 const MainNav = () => {
@@ -52,7 +92,7 @@ const MainNav = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <h1 className="text-2xl font-bold text-teal-600 dark:text-teal-400">
+            <h1 className="text-2xl font-bold text-teal-600 dark:text-teal-400 cursor-pointer">
               VitaFlow
             </h1>
             {/* Desktop Navigation */}
@@ -70,7 +110,7 @@ const MainNav = () => {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full"
+              className="rounded-full cursor-pointer"
             >
               {theme === "dark" ? (
                 <SunIcon className="h-5 w-5" />
@@ -80,14 +120,18 @@ const MainNav = () => {
             </Button>
 
             {/* Book Now button - hidden on mobile */}
-            <Button className="hidden md:block bg-orange-500 hover:bg-orange-600 text-white">
-              Book Now
-            </Button>
+            <div className="hidden md:block">
+              <BookingPopover />
+            </div>
 
             {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="md:hidden cursor-pointer"
+                >
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -106,7 +150,7 @@ const MainNav = () => {
                       <NavigationMenuItem className="w-full">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start"
+                          className="w-full justify-start cursor-pointer"
                           asChild
                         >
                           <NavigationMenuLink>Home</NavigationMenuLink>
@@ -115,7 +159,7 @@ const MainNav = () => {
                       <NavigationMenuItem className="w-full">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start"
+                          className="w-full justify-start cursor-pointer"
                           asChild
                         >
                           <NavigationMenuLink>Services</NavigationMenuLink>
@@ -124,7 +168,7 @@ const MainNav = () => {
                       <NavigationMenuItem className="w-full">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start"
+                          className="w-full justify-start cursor-pointer"
                           asChild
                         >
                           <NavigationMenuLink>About</NavigationMenuLink>
@@ -133,7 +177,7 @@ const MainNav = () => {
                       <NavigationMenuItem className="w-full">
                         <Button
                           variant="ghost"
-                          className="w-full justify-start"
+                          className="w-full justify-start cursor-pointer"
                           asChild
                         >
                           <NavigationMenuLink>Contact</NavigationMenuLink>
@@ -141,9 +185,7 @@ const MainNav = () => {
                       </NavigationMenuItem>
                     </NavigationMenuList>
                   </NavigationMenu>
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white mt-4">
-                    Book Now
-                  </Button>
+                  <BookingPopover />
                 </div>
               </SheetContent>
             </Sheet>
