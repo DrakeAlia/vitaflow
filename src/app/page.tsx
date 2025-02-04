@@ -23,14 +23,37 @@ import {
   Star,
   Users,
   Calendar,
+  // Info,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/ui/hover-card";
+// import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Progress } from "@/components/ui/progress";
+import {
+  Command,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import MainNav from "@/components/MainNav";
 
@@ -79,9 +102,36 @@ const HomePage = () => {
     },
   ];
 
+  const [bookingStep, setBookingStep] = React.useState(0);
+  const faqs = [
+    {
+      question: "How do I book a consultation?",
+      answer:
+        "You can book a consultation through our online booking system or by calling our office. Virtual and in-person options are available.",
+    },
+    {
+      question: "What services do you offer?",
+      answer:
+        "We offer prescription services, medication management, wellness programs, and health consultations.",
+    },
+    {
+      question: "Are virtual consultations available?",
+      answer:
+        "Yes, we offer secure virtual consultations with our healthcare professionals for your convenience.",
+    },
+  ];
+
   return (
     <>
       <MainNav />
+      {/* <Alert className="max-w-4xl mx-auto mt-20 mb-6">
+        <Info className="h-4 w-4" />
+        <AlertTitle>New Service Available</AlertTitle>
+        <AlertDescription>
+          Try our new virtual consultation service from the comfort of your
+          home.
+        </AlertDescription>
+      </Alert> */}
       <main className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <section className="relative min-h-[90vh] md:min-h-screen grid grid-cols-1 md:grid-cols-2">
@@ -142,40 +192,102 @@ const HomePage = () => {
                     </PopoverTrigger>
                     <PopoverContent className="w-80">
                       <div className="grid gap-4">
-                        <div className="space-y-2">
-                          <h4 className="font-medium leading-none">
-                            Schedule Your Consultation
-                          </h4>
-                          <p className="text-sm text-muted-foreground">
-                            Choose your preferred consultation type and time
-                          </p>
-                        </div>
-                        <div className="grid gap-2">
-                          <div className="grid grid-cols-2 gap-2">
-                            <Button
-                              variant="outline"
-                              className="justify-start hover:bg-primary/10 hover:text-primary transition-colors"
-                            >
-                              <Calendar className="mr-2 h-4 w-4" />
-                              In-Person
-                            </Button>
-                            <Button variant="outline" className="justify-start">
-                              Virtual
-                            </Button>
-                          </div>
-                          <div className="grid grid-cols-3 gap-2">
-                            <Button variant="outline" className="justify-start">
-                              Today
-                            </Button>
-                            <Button variant="outline" className="justify-start">
-                              Tomorrow
-                            </Button>
-                            <Button variant="outline" className="justify-start">
-                              Next Week
-                            </Button>
-                          </div>
-                          <Button className="w-full">Continue Booking</Button>
-                        </div>
+                        <Progress value={bookingStep * 33} className="w-full" />
+                        {bookingStep === 0 ? (
+                          // Step 1: Choose consultation type
+                          <>
+                            <div className="space-y-2">
+                              <h4 className="font-medium leading-none">
+                                Choose Consultation Type
+                              </h4>
+                              <p className="text-sm text-muted-foreground">
+                                Select your preferred appointment type
+                              </p>
+                            </div>
+                            <div className="grid grid-cols-2 gap-2">
+                              <Button
+                                variant="outline"
+                                className="justify-start"
+                                onClick={() => setBookingStep(1)}
+                              >
+                                <Calendar className="mr-2 h-4 w-4" />
+                                In-Person
+                              </Button>
+                              <Button
+                                variant="outline"
+                                className="justify-start"
+                                onClick={() => setBookingStep(1)}
+                              >
+                                
+                                Virtual
+                              </Button>
+                            </div>
+                          </>
+                        ) : bookingStep === 1 ? (
+                          // Step 2: Choose time
+                          <>
+                            <div className="space-y-2">
+                              <h4 className="font-medium leading-none">
+                                Select Time
+                              </h4>
+                              <p className="text-sm text-muted-foreground">
+                                Choose your preferred date
+                              </p>
+                            </div>
+                            <div className="grid gap-2">
+                              <div className="grid grid-cols-3 gap-2">
+                                <Button
+                                  variant="outline"
+                                  className="justify-center"
+                                >
+                                  Today
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  className="justify-center"
+                                >
+                                  Tomorrow
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  className="justify-center"
+                                >
+                                  Next Week
+                                </Button>
+                              </div>
+                              <Button onClick={() => setBookingStep(2)}>
+                                Continue
+                              </Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => setBookingStep(0)}
+                              >
+                                Back
+                              </Button>
+                            </div>
+                          </>
+                        ) : (
+                          // Step 3: Confirmation
+                          <>
+                            <div className="space-y-2">
+                              <h4 className="font-medium leading-none">
+                                Confirm Booking
+                              </h4>
+                              <p className="text-sm text-muted-foreground">
+                                Review your appointment details
+                              </p>
+                            </div>
+                            <div className="grid gap-2">
+                              <Button>Confirm Booking</Button>
+                              <Button
+                                variant="outline"
+                                onClick={() => setBookingStep(1)}
+                              >
+                                Back
+                              </Button>
+                            </div>
+                          </>
+                        )}
                       </div>
                     </PopoverContent>
                   </Popover>
@@ -202,56 +314,88 @@ const HomePage = () => {
         >
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-foreground">Our Impact</h2>
+              <h2 className="text-4xl font-bold text-foreground">Our Impact</h2>
               <Separator className="my-4 mx-auto w-16" />
             </div>
             <motion.div
               className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
               variants={staggerChildren}
             >
-              {[
-                {
-                  number: "15+",
-                  label: "Years Experience",
-                  icon: <Star className="w-5 h-5" />,
-                },
-                {
-                  number: "50k+",
-                  label: "Happy Customers",
-                  icon: <Users className="w-5 h-5" />,
-                },
-                {
-                  number: "24/7",
-                  label: "Support Available",
-                  icon: <Clock className="w-5 h-5" />,
-                },
-                {
-                  number: "100%",
-                  label: "Satisfaction Rate",
-                  icon: <Heart className="w-5 h-5" />,
-                },
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center p-6 bg-card rounded-lg border shadow-sm"
-                  variants={fadeInSlideUp}
-                >
-                  <div className="text-primary mb-3">{stat.icon}</div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">
-                    {stat.number}
-                  </h3>
-                  <p className="text-sm md:text-base text-muted-foreground">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
+              <TooltipProvider>
+                {[
+                  {
+                    number: "15+",
+                    label: "Years Experience",
+                    icon: <Star className="w-5 h-5" />,
+                    tooltip: "Serving our community since 2008",
+                  },
+                  {
+                    number: "50k+",
+                    label: "Happy Customers",
+                    icon: <Users className="w-5 h-5" />,
+                    tooltip: "Trusted by thousands of patients",
+                  },
+                  {
+                    number: "24/7",
+                    label: "Support Available",
+                    icon: <Clock className="w-5 h-5" />,
+                    tooltip: "Round-the-clock healthcare support",
+                  },
+                  {
+                    number: "100%",
+                    label: "Satisfaction Rate",
+                    icon: <Heart className="w-5 h-5" />,
+                    tooltip: "Committed to excellence in healthcare",
+                  },
+                ].map((stat, index) => (
+                  <Tooltip key={index}>
+                    <TooltipTrigger asChild>
+                      <motion.div
+                        className="text-center p-6 bg-card rounded-lg border shadow-sm"
+                        variants={fadeInSlideUp}
+                      >
+                        <div className="text-primary mb-3">{stat.icon}</div>
+                        <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                          {stat.number}
+                        </h3>
+                        <p className="text-sm md:text-base text-muted-foreground">
+                          {stat.label}
+                        </p>
+                      </motion.div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{stat.tooltip}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
+              </TooltipProvider>
             </motion.div>
           </div>
         </motion.section>
 
+        {/* Quick Search Section */}
+        <section className="py-8 bg-background">
+          <div className="container mx-auto px-4 max-w-2xl">
+            <Command className="rounded-lg border shadow-md">
+              <CommandInput placeholder="Search services..." />
+              <CommandList>
+                <CommandEmpty>No results found.</CommandEmpty>
+                <CommandGroup heading="Services">
+                  {services.map((service) => (
+                    <CommandItem key={service.title}>
+                      {service.icon}
+                      <span className="ml-2">{service.title}</span>
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+              </CommandList>
+            </Command>
+          </div>
+        </section>
+
         {/* Services Grid */}
         <motion.section
-          className="py-12 md:py-20 bg-muted/30"
+          className="py-12 md:py-20 "
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -306,7 +450,7 @@ const HomePage = () => {
                           </p>
                         </CardContent>
                         <CardFooter>
-                          <Button variant="ghost" className="w-full group">
+                          <Button  className="w-full group">
                             Learn More
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </Button>
@@ -334,6 +478,23 @@ const HomePage = () => {
             </motion.div>
           </div>
         </motion.section>
+
+        {/* FAQ Section */}
+        <section className="py-12 md:py-20">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+              Frequently Asked Questions
+            </h2>
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger>{faq.question}</AccordionTrigger>
+                  <AccordionContent>{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
 
         {/* Consultation Section */}
         <section className="py-12 md:py-20 bg-background">
@@ -397,6 +558,7 @@ const HomePage = () => {
                           <Button
                             variant="outline"
                             className="justify-start hover:bg-primary/10 hover:text-primary transition-colors"
+                            onClick={() => setBookingStep(1)}
                           >
                             <Calendar className="mr-2 h-4 w-4" />
                             In-Person
@@ -416,8 +578,20 @@ const HomePage = () => {
                             Next Week
                           </Button>
                         </div>
-                        <Button className="w-full">Continue Booking</Button>
+                        <Button
+                          className="w-full"
+                          onClick={() => setBookingStep(2)}
+                        >
+                          Continue Booking
+                        </Button>
                       </div>
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => setBookingStep(0)}
+                      >
+                        Back
+                      </Button>
                     </div>
                   </PopoverContent>
                 </Popover>

@@ -57,14 +57,14 @@ const BookingPopover = () => (
         </div>
         <div className="grid gap-2">
           <div className="grid grid-cols-3 gap-2">
-            <Button variant="outline" className="justify-start">
+            <Button variant="outline" className="justify-center">
               <Calendar className="mr-2 h-4 w-4" />
               Today
             </Button>
-            <Button variant="outline" className="justify-start">
+            <Button variant="outline" className="justify-center">
               Tomorrow
             </Button>
-            <Button variant="outline" className="justify-start">
+            <Button variant="outline" className="justify-center">
               Next Week
             </Button>
           </div>
