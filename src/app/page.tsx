@@ -10,26 +10,12 @@ import {
   CardHeader,
   CardFooter,
 } from "@/components/ui/card";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Clock,
-  Heart,
-  Beaker,
-  ArrowRight,
-  Star,
-  Users,
-  Calendar,
-} from "lucide-react";
+import { Clock, Heart, Beaker, ArrowRight, Star, Users } from "lucide-react";
 import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/ui/hover-card";
-import { Progress } from "@/components/ui/progress";
 import {
   Command,
   CommandInput,
@@ -53,6 +39,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import BookingPopover from "@/components/BookingPopover";
 import MainNav from "@/components/MainNav";
 
 const HomePage = () => {
@@ -100,7 +87,6 @@ const HomePage = () => {
     },
   ];
 
-  const [bookingStep, setBookingStep] = React.useState(0);
   const faqs = [
     {
       question: "How do I book a consultation?",
@@ -173,113 +159,11 @@ const HomePage = () => {
                   className="flex flex-col sm:flex-row gap-4"
                   variants={fadeInSlideUp}
                 >
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button size="lg" className="w-full h-12 text-lg">
-                        Book Consultation
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-80">
-                      <div className="grid gap-4">
-                        <Progress value={bookingStep * 33} className="w-full" />
-                        {bookingStep === 0 ? (
-                          // Step 1: Choose consultation type
-                          <>
-                            <div className="space-y-2">
-                              <h4 className="font-medium leading-none">
-                                Choose Consultation Type
-                              </h4>
-                              <p className="text-sm text-muted-foreground">
-                                Select your preferred appointment type
-                              </p>
-                            </div>
-                            <div className="grid grid-cols-2 gap-2">
-                              <Button
-                                variant="outline"
-                                className="justify-start"
-                                onClick={() => setBookingStep(1)}
-                              >
-                                <Calendar className="mr-2 h-4 w-4" />
-                                In-Person
-                              </Button>
-                              <Button
-                                variant="outline"
-                                className="justify-start"
-                                onClick={() => setBookingStep(1)}
-                              >
-                                Virtual
-                              </Button>
-                            </div>
-                          </>
-                        ) : bookingStep === 1 ? (
-                          // Step 2: Choose time
-                          <>
-                            <div className="space-y-2">
-                              <h4 className="font-medium leading-none">
-                                Select Time
-                              </h4>
-                              <p className="text-sm text-muted-foreground">
-                                Choose your preferred date
-                              </p>
-                            </div>
-                            <div className="grid gap-2">
-                              <div className="grid grid-cols-3 gap-2">
-                                <Button
-                                  variant="outline"
-                                  className="justify-center"
-                                >
-                                  Today
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  className="justify-center"
-                                >
-                                  Tomorrow
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  className="justify-center"
-                                >
-                                  Next Week
-                                </Button>
-                              </div>
-                              <Button onClick={() => setBookingStep(2)}>
-                                Continue
-                              </Button>
-                              <Button
-                                variant="outline"
-                                onClick={() => setBookingStep(0)}
-                              >
-                                Back
-                              </Button>
-                            </div>
-                          </>
-                        ) : (
-                          // Step 3: Confirmation
-                          <>
-                            <div className="space-y-2">
-                              <h4 className="font-medium leading-none">
-                                Confirm Booking
-                              </h4>
-                              <p className="text-sm text-muted-foreground">
-                                Review your appointment details
-                              </p>
-                            </div>
-                            <div className="grid gap-2">
-                              <Button>Confirm Booking</Button>
-                              <Button
-                                variant="outline"
-                                onClick={() => setBookingStep(1)}
-                              >
-                                Back
-                              </Button>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </PopoverContent>
-                  </Popover>
+                  <BookingPopover
+                    buttonText="Book Consultation"
+                    buttonClassName="w-full h-12 text-lg"
+                  />
+
                   <Button
                     size="lg"
                     variant="outline"
@@ -522,68 +406,10 @@ const HomePage = () => {
                     </p>
                   </TabsContent>
                 </Tabs>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      size="lg"
-                      className="w-full sm:w-auto h-12 text-lg group"
-                    >
-                      Schedule Consultation
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-80">
-                    <div className="grid gap-4">
-                      <div className="space-y-2">
-                        <h4 className="font-medium leading-none">
-                          Schedule Your Consultation
-                        </h4>
-                        <p className="text-sm text-muted-foreground">
-                          Choose your preferred consultation type and time
-                        </p>
-                      </div>
-                      <div className="grid gap-2">
-                        <div className="grid grid-cols-2 gap-2">
-                          <Button
-                            variant="outline"
-                            className="justify-start hover:bg-primary/10 hover:text-primary transition-colors"
-                            onClick={() => setBookingStep(1)}
-                          >
-                            <Calendar className="mr-2 h-4 w-4" />
-                            In-Person
-                          </Button>
-                          <Button variant="outline" className="justify-start">
-                            Virtual
-                          </Button>
-                        </div>
-                        <div className="grid grid-cols-3 gap-2">
-                          <Button variant="outline" className="justify-start">
-                            Today
-                          </Button>
-                          <Button variant="outline" className="justify-start">
-                            Tomorrow
-                          </Button>
-                          <Button variant="outline" className="justify-start">
-                            Next Week
-                          </Button>
-                        </div>
-                        <Button
-                          className="w-full"
-                          onClick={() => setBookingStep(2)}
-                        >
-                          Continue Booking
-                        </Button>
-                      </div>
-                      <Button
-                        variant="outline"
-                        className="w-full"
-                        onClick={() => setBookingStep(0)}
-                      >
-                        Back
-                      </Button>
-                    </div>
-                  </PopoverContent>
-                </Popover>
+                <BookingPopover
+                  buttonText="Schedule Consultation"
+                  buttonClassName="w-full sm:w-auto h-12 text-lg group"
+                />
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}

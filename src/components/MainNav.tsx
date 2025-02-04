@@ -7,14 +7,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import {
-  MoonIcon,
-  SunIcon,
-  Menu,
-  Calendar,
-  ArrowRight,
-  Phone,
-} from "lucide-react";
+import { MoonIcon, SunIcon, Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import {
@@ -24,11 +17,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
+import BookingPopover from "@/components/BookingPopover";
 
 type MenuItem = {
   label: string;
@@ -61,38 +51,7 @@ const NavItem = ({ href, children, mobile }: NavItemProps) => (
   </NavigationMenuItem>
 );
 
-const BookingPopover = () => (
-  <Popover>
-    <PopoverTrigger asChild>
-      <Button className="md:w-auto">
-        Book Now
-        <ArrowRight className="ml-2 h-4 w-4" />
-      </Button>
-    </PopoverTrigger>
-    <PopoverContent className="w-80">
-      <div className="grid gap-4">
-        <div className="space-y-2">
-          <h4 className="font-medium leading-none">Book a Consultation</h4>
-          <p className="text-sm text-muted-foreground">
-            Choose your preferred option
-          </p>
-        </div>
-        <div className="grid gap-2">
-          <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" className="justify-start">
-              <Calendar className="mr-2 h-4 w-4" />
-              In-Person
-            </Button>
-            <Button variant="outline" className="justify-start">
-              Virtual
-            </Button>
-          </div>
-          <Button className="w-full">Continue Booking</Button>
-        </div>
-      </div>
-    </PopoverContent>
-  </Popover>
-);
+<BookingPopover buttonClassName="w-full" />;
 
 const MobileNav = () => (
   <Sheet>
@@ -135,7 +94,7 @@ const MobileNav = () => (
           <BookingPopover />
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Phone className="h-4 w-4" />
-            <span>24/7 Support: (555) 123-4567</span>
+            <span>24/7 Support</span>
           </div>
         </div>
       </div>
