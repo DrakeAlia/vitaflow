@@ -112,7 +112,7 @@ const HomePage = () => {
         {/* Hero Section */}
         <section className="relative min-h-[90vh] md:min-h-screen grid grid-cols-1 md:grid-cols-2">
           <motion.div
-            className="relative h-[50vh] md:h-full order-2 md:order-1 bg-muted"
+            className="relative h-[50vh] md:h-full order-2 md:order-1 bg-muted rounded-lg"
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
@@ -122,7 +122,7 @@ const HomePage = () => {
               alt="Modern pharmacy interior"
               fill
               priority
-              className="object-cover"
+              className="object-cover rounded-lg"
             />
           </motion.div>
 
@@ -300,7 +300,7 @@ const HomePage = () => {
                 >
                   <HoverCard>
                     <HoverCardTrigger asChild>
-                      <Card className="h-full overflow-hidden">
+                      <Card className="h-full overflow-hidden flex flex-col">
                         <div className="relative h-48 w-full bg-muted">
                           <Image
                             src={service.image}
@@ -309,7 +309,7 @@ const HomePage = () => {
                             className="object-cover"
                           />
                         </div>
-                        <CardHeader>
+                        <CardHeader className="flex-none">
                           <div className="mb-4 md:mb-6 text-primary group-hover:scale-110 transition-transform">
                             {service.icon}
                           </div>
@@ -317,12 +317,12 @@ const HomePage = () => {
                             {service.title}
                           </h3>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="flex-1">
                           <p className="text-muted-foreground">
                             {service.description}
                           </p>
                         </CardContent>
-                        <CardFooter>
+                        <CardFooter className="flex-none">
                           <Button className="w-full group">
                             Learn More
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

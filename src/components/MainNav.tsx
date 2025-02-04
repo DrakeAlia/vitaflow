@@ -60,9 +60,9 @@ const MobileNav = () => (
         <Menu className="h-5 w-5" />
       </Button>
     </SheetTrigger>
-    <SheetContent side="right" className="p-0">
+    <SheetContent side="right" className="p-0 flex flex-col">
       <div className="flex flex-col h-full">
-        <SheetHeader className="p-4 border-b">
+        <SheetHeader className="p-4 border-b flex-none">
           <div className="flex items-center justify-between">
             <SheetTitle className="text-xl font-bold text-primary">
               VitaFlow
@@ -90,8 +90,8 @@ const MobileNav = () => (
           </nav>
         </div>
 
-        <div className="p-4 border-t space-y-4">
-          <BookingPopover />
+        <div className="p-4 mt-auto border-t">
+          <BookingPopover buttonClassName="w-full mb-4" />
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Phone className="h-4 w-4" />
             <span>24/7 Support</span>
