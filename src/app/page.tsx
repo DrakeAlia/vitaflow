@@ -23,14 +23,12 @@ import {
   Star,
   Users,
   Calendar,
-  // Info,
 } from "lucide-react";
 import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
 } from "@/components/ui/hover-card";
-// import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 import {
   Command,
@@ -124,14 +122,6 @@ const HomePage = () => {
   return (
     <>
       <MainNav />
-      {/* <Alert className="max-w-4xl mx-auto mt-20 mb-6">
-        <Info className="h-4 w-4" />
-        <AlertTitle>New Service Available</AlertTitle>
-        <AlertDescription>
-          Try our new virtual consultation service from the comfort of your
-          home.
-        </AlertDescription>
-      </Alert> */}
       <main className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <section className="relative min-h-[90vh] md:min-h-screen grid grid-cols-1 md:grid-cols-2">
@@ -218,7 +208,6 @@ const HomePage = () => {
                                 className="justify-start"
                                 onClick={() => setBookingStep(1)}
                               >
-                                
                                 Virtual
                               </Button>
                             </div>
@@ -450,7 +439,7 @@ const HomePage = () => {
                           </p>
                         </CardContent>
                         <CardFooter>
-                          <Button  className="w-full group">
+                          <Button className="w-full group">
                             Learn More
                             <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                           </Button>

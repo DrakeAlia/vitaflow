@@ -7,7 +7,14 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { MoonIcon, SunIcon, Menu, Calendar } from "lucide-react";
+import {
+  MoonIcon,
+  SunIcon,
+  Menu,
+  Calendar,
+  ArrowRight,
+  Phone,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import {
@@ -23,28 +30,43 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-const NavItems = () => (
-  <>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
-      Home
-    </NavigationMenuLink>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
-      Services
-    </NavigationMenuLink>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
-      About
-    </NavigationMenuLink>
-    <NavigationMenuLink className="px-3 py-2 hover:text-teal-600 dark:hover:text-teal-400 cursor-pointer">
-      Contact
-    </NavigationMenuLink>
-  </>
+type MenuItem = {
+  label: string;
+  href: string;
+};
+
+interface NavItemProps {
+  href: string;
+  children: React.ReactNode;
+  mobile?: boolean;
+}
+
+const menuItems: MenuItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+const NavItem = ({ href, children, mobile }: NavItemProps) => (
+  <NavigationMenuItem>
+    <Button
+      variant="ghost"
+      className={`w-full justify-start font-medium hover:text-primary transition-colors
+        ${mobile ? "text-lg p-4" : "px-3 py-2 hover:bg-transparent"}`}
+      asChild
+    >
+      <NavigationMenuLink href={href}>{children}</NavigationMenuLink>
+    </Button>
+  </NavigationMenuItem>
 );
 
 const BookingPopover = () => (
   <Popover>
     <PopoverTrigger asChild>
-      <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+      <Button className="md:w-auto">
         Book Now
+        <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
     </PopoverTrigger>
     <PopoverContent className="w-80">
@@ -52,20 +74,17 @@ const BookingPopover = () => (
         <div className="space-y-2">
           <h4 className="font-medium leading-none">Book a Consultation</h4>
           <p className="text-sm text-muted-foreground">
-            Choose a service and preferred time slot
+            Choose your preferred option
           </p>
         </div>
         <div className="grid gap-2">
-          <div className="grid grid-cols-3 gap-2">
-            <Button variant="outline" className="justify-center">
+          <div className="grid grid-cols-2 gap-2">
+            <Button variant="outline" className="justify-start">
               <Calendar className="mr-2 h-4 w-4" />
-              Today
+              In-Person
             </Button>
-            <Button variant="outline" className="justify-center">
-              Tomorrow
-            </Button>
-            <Button variant="outline" className="justify-center">
-              Next Week
+            <Button variant="outline" className="justify-start">
+              Virtual
             </Button>
           </div>
           <Button className="w-full">Continue Booking</Button>
@@ -73,6 +92,55 @@ const BookingPopover = () => (
       </div>
     </PopoverContent>
   </Popover>
+);
+
+const MobileNav = () => (
+  <Sheet>
+    <SheetTrigger asChild>
+      <Button variant="ghost" size="icon" className="md:hidden">
+        <Menu className="h-5 w-5" />
+      </Button>
+    </SheetTrigger>
+    <SheetContent side="right" className="p-0">
+      <div className="flex flex-col h-full">
+        <SheetHeader className="p-4 border-b">
+          <div className="flex items-center justify-between">
+            <SheetTitle className="text-xl font-bold text-primary">
+              VitaFlow
+            </SheetTitle>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8"
+              asChild
+            ></Button>
+          </div>
+        </SheetHeader>
+
+        <div className="flex-1 overflow-y-auto">
+          <nav className="p-4">
+            <NavigationMenu orientation="vertical">
+              <NavigationMenuList className="flex flex-col">
+                {menuItems.map((item) => (
+                  <NavItem key={item.label} href={item.href} mobile>
+                    {item.label}
+                  </NavItem>
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
+          </nav>
+        </div>
+
+        <div className="p-4 border-t space-y-4">
+          <BookingPopover />
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <Phone className="h-4 w-4" />
+            <span>24/7 Support: (555) 123-4567</span>
+          </div>
+        </div>
+      </div>
+    </SheetContent>
+  </Sheet>
 );
 
 const MainNav = () => {
@@ -83,24 +151,24 @@ const MainNav = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
     <header className="fixed w-full top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <h1 className="text-2xl font-bold text-teal-600 dark:text-teal-400 cursor-pointer">
+            <h1 className="text-2xl font-bold text-primary cursor-pointer">
               VitaFlow
             </h1>
-            {/* Desktop Navigation */}
+
             <NavigationMenu className="hidden md:block">
-              <NavigationMenuList>
-                <NavigationMenuItem>
-                  <NavItems />
-                </NavigationMenuItem>
+              <NavigationMenuList className="flex gap-2">
+                {menuItems.map((item) => (
+                  <NavItem key={item.label} href={item.href}>
+                    {item.label}
+                  </NavItem>
+                ))}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
@@ -110,7 +178,7 @@ const MainNav = () => {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full cursor-pointer"
+              className="rounded-full"
             >
               {theme === "dark" ? (
                 <SunIcon className="h-5 w-5" />
@@ -119,76 +187,11 @@ const MainNav = () => {
               )}
             </Button>
 
-            {/* Book Now button - hidden on mobile */}
             <div className="hidden md:block">
               <BookingPopover />
             </div>
 
-            {/* Mobile Menu */}
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="md:hidden cursor-pointer"
-                >
-                  <Menu className="h-5 w-5" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle className="text-left text-teal-600 dark:text-teal-400">
-                    VitaFlow
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-4 mt-6">
-                  <NavigationMenu
-                    orientation="vertical"
-                    className="flex flex-col gap-2"
-                  >
-                    <NavigationMenuList className="flex flex-col items-start gap-2">
-                      <NavigationMenuItem className="w-full">
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start cursor-pointer"
-                          asChild
-                        >
-                          <NavigationMenuLink>Home</NavigationMenuLink>
-                        </Button>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem className="w-full">
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start cursor-pointer"
-                          asChild
-                        >
-                          <NavigationMenuLink>Services</NavigationMenuLink>
-                        </Button>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem className="w-full">
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start cursor-pointer"
-                          asChild
-                        >
-                          <NavigationMenuLink>About</NavigationMenuLink>
-                        </Button>
-                      </NavigationMenuItem>
-                      <NavigationMenuItem className="w-full">
-                        <Button
-                          variant="ghost"
-                          className="w-full justify-start cursor-pointer"
-                          asChild
-                        >
-                          <NavigationMenuLink>Contact</NavigationMenuLink>
-                        </Button>
-                      </NavigationMenuItem>
-                    </NavigationMenuList>
-                  </NavigationMenu>
-                  <BookingPopover />
-                </div>
-              </SheetContent>
-            </Sheet>
+            <MobileNav />
           </div>
         </div>
       </div>
