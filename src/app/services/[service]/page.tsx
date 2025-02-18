@@ -14,11 +14,8 @@ import { Clock, ArrowLeft } from "lucide-react";
 import { getServiceData } from "@/lib/services";
 import BookingPopover from "@/components/BookingPopover";
 
-type Props = {
-  params: { service: string };
-};
-
-const ServicePage = async ({ params }: Props) => {
+export default function Page(props: { params: { service: string } }) {
+  const { params } = props;
   const service = getServiceData(params.service);
 
   if (!service) {
@@ -26,12 +23,11 @@ const ServicePage = async ({ params }: Props) => {
   }
 
   return <ServiceContent service={service} />;
-};
+}
 
 interface ServiceContentProps {
   service: NonNullable<ReturnType<typeof getServiceData>>;
 }
-
 function ServiceContent({ service }: ServiceContentProps) {
   return (
     <main className="min-h-screen py-12">
@@ -109,5 +105,3 @@ function ServiceContent({ service }: ServiceContentProps) {
     </main>
   );
 }
-
-export default ServicePage;

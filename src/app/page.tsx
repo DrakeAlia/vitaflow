@@ -41,6 +41,7 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import BookingPopover from "@/components/BookingPopover";
 import MainNav from "@/components/MainNav";
+import Link from "next/link";
 
 const HomePage = () => {
   const fadeInSlideUp = {
@@ -164,14 +165,16 @@ const HomePage = () => {
                     buttonClassName="w-full h-12 text-lg"
                   />
 
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full h-12 text-lg group"
-                  >
-                    View Services
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <Link href="/services" className="w-full">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="w-full h-12 text-lg group"
+                    >
+                      View Services
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </Link>
                 </motion.div>
               </motion.div>
             </div>
@@ -323,10 +326,17 @@ const HomePage = () => {
                           </p>
                         </CardContent>
                         <CardFooter className="flex-none">
-                          <Button className="w-full group">
-                            Learn More
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
+                          <Link
+                            href={`/services/${service.title
+                              .toLowerCase()
+                              .replace(/\s+/g, "-")}`}
+                            className="w-full"
+                          >
+                            <Button className="w-full group">
+                              Learn More
+                              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </Link>
                         </CardFooter>
                       </Card>
                     </HoverCardTrigger>
