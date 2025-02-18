@@ -9,147 +9,102 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Clock, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { Service } from "@/lib/services";
 
 interface ServiceGridProps {
-  category: string;
+  services: Service[];
 }
 
-const ServiceGrid = ({ category }: ServiceGridProps) => {
-  // This would typically come from an API or database
-  const services = [
-    {
-      id: "1",
-      title: "Medication Review",
-      slug: "medication-review",
-      description: "Comprehensive review of your current medications",
-      category: "prescriptions",
-      price: 50,
-      duration: "30 min",
-    },
-    {
-      id: "2",
-      title: "Blood Pressure Check",
-      slug: "blood-pressure-check",
-      description: "Check your blood pressure and provide advice",
-      category: "vitals",
-      price: 30,
-      duration: "15 min",
-    },
-    {
-      id: "3",
-      title: "Flu Vaccination",
-      slug: "flu-vaccination",
-      description: "Protect yourself from the flu this season",
-      category: "vaccinations",
-      price: 40,
-      duration: "20 min",
-    },
-    {
-      id: "4",
-      title: "Cholesterol Test",
-      slug: "cholesterol-test",
-      description: "Check your cholesterol levels and provide advice",
-      category: "vitals",
-      price: 40,
-      duration: "20 min",
-    },
-    {
-      id: "5",
-      title: "Diabetes Check",
-      slug: "diabetes-check",
-      description: "Check your blood sugar levels and provide advice",
-      category: "vitals",
-      price: 40,
-      duration: "20 min",
-    },
-    {
-      id: "6",
-      title: "Weight Management",
-      slug: "weight-management",
-      description: "Comprehensive review of your weight and provide advice",
-      category: "lifestyle",
-      price: 50,
-      duration: "30 min",
-    },
-    {
-      id: "7",
-      title: "Smoking Cessation",
-      slug: "smoking-cessation",
-      description: "Support and advice to help you quit smoking",
-      category: "lifestyle",
-      price: 50,
-      duration: "30 min",
-    },
-    {
-      id: "8",
-      title: "Asthma Review",
-      slug: "asthma-review",
-      description: "Comprehensive review of your asthma and provide advice",
-      category: "chronic",
-      price: 50,
-      duration: "30 min",
-    },
-    {
-      id: "9",
-      title: "Diabetes Review",
-      slug: "diabetes-review",
-      description: "Comprehensive review of your diabetes and provide advice",
-      category: "chronic",
-      price: 50,
-      duration: "30 min",
-    },
-    {
-      id: "10",
-      title: "Blood Pressure Review",
-      slug: "blood-pressure-review",
-      description:
-        "Comprehensive review of your blood pressure and provide advice",
-      category: "chronic",
-      price: 50,
-      duration: "30 min",
-    },
-  ];
-
-  const filteredServices =
-    category === "all"
-      ? services
-      : services.filter((service) => service.category === category);
+const ServiceGrid = ({ services }: ServiceGridProps) => {
+  const serviceRows = [];
+  for (let i = 0; i < services.length; i += 2) {
+    serviceRows.push(services.slice(i, i + 2));
+  }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {filteredServices.map((service) => (
-        <motion.div
-          key={service.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="group"
+    <div className="space-y-8">
+      {serviceRows.map((row, rowIndex) => (
+        <div
+          key={`row-${rowIndex}`}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          <Card className="h-full hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <Badge variant="secondary">{service.category}</Badge>
-                <div className="flex items-center text-muted-foreground">
-                  <Clock className="w-4 h-4 mr-1" />
-                  <span className="text-sm">{service.duration}</span>
+          {row.map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: (rowIndex * 2 + index) * 0.1,
+                duration: 0.5,
+              }}
+              exit={{ opacity: 0, y: -20 }}
+              className="group h-full"
+            >
+              <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-muted/40 flex flex-col">
+                <div className="relative h-48 w-full bg-gradient-to-r from-primary/10 to-secondary/10">
+                  <Image
+                    src={
+                      service.image || `/images/services/${service.slug}.png`
+                    }
+                    alt={service.title}
+                    fill
+                    className="object-cover object-center opacity-90 group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge
+                      variant="secondary"
+                      className="bg-background/80 backdrop-blur-sm"
+                    >
+                      {service.category}
+                    </Badge>
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <div className="flex items-center bg-background/80 text-foreground rounded-full px-2 py-1 text-xs backdrop-blur-sm">
+                      <Clock className="w-3 h-3 mr-1" />
+                      <span>{service.duration}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <h3 className="text-xl font-semibold">{service.title}</h3>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground">{service.description}</p>
-              <p className="mt-4 text-lg font-semibold">${service.price}</p>
-            </CardContent>
-            <CardFooter>
-              <Link href={`/services/${service.slug}`} className="w-full">
-                <Button className="w-full group">
-                  Book Now
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </CardFooter>
-          </Card>
-        </motion.div>
+
+                <div className="flex flex-col flex-grow">
+                  <CardHeader>
+                    <h3 className="text-xl font-semibold group-hover:text-primary transition-colors">
+                      {service.title}
+                    </h3>
+                  </CardHeader>
+
+                  <CardContent className="flex-grow">
+                    <p className="text-muted-foreground line-clamp-3 h-[72px]">
+                      {service.description}
+                    </p>
+                    <div className="mt-4 flex items-center justify-between">
+                      <p className="text-lg font-semibold text-primary">
+                        ${service.price}
+                      </p>
+                      <div className="flex items-center text-xs text-muted-foreground">
+                        <Clock className="w-3 h-3 mr-1" />
+                        <span>{service.duration}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+
+                  <CardFooter className="mt-auto">
+                    <Link
+                      href={`/services/${service.slug || service.id}`}
+                      className="w-full"
+                    >
+                      <Button className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary">
+                        Book Now
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </CardFooter>
+                </div>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
       ))}
     </div>
   );
