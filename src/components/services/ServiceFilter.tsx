@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -22,8 +24,8 @@ const ServiceFilter = ({
 
   return (
     <>
-      <Card className="sticky top-24 border border-muted/40 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-background/0 z-0"></div>
+      <Card className="sticky top-24 border overflow-hidden">
+        <div className="absolute inset-0 z-0"></div>
         <CardContent className="p-6 relative z-10">
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
@@ -59,7 +61,7 @@ const ServiceFilter = ({
         </CardContent>
       </Card>
 
-      <Card className="mt-6 border border-muted/40 bg-gradient-to-br from-background to-muted/10">
+      <Card className="sticky top-[calc(24rem+1.5rem)] border bg-gradient-to-br from-background to-muted/10">
         <CardContent className="p-6">
           <h4 className="text-md font-medium mb-4">At a Glance</h4>
           <div className="space-y-3">

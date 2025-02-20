@@ -42,7 +42,7 @@ const ServiceGrid = ({ services }: ServiceGridProps) => {
               className="group h-full"
             >
               <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-muted/40 flex flex-col">
-                <div className="relative h-48 w-full bg-gradient-to-r from-primary/10 to-secondary/10">
+                <div className="relative h-48 w-full from-primary/10 to-secondary/10">
                   <Image
                     src={
                       service.image || `/images/services/${service.slug}.png`
@@ -54,13 +54,13 @@ const ServiceGrid = ({ services }: ServiceGridProps) => {
                   <div className="absolute top-4 left-4">
                     <Badge
                       variant="secondary"
-                      className="bg-background/80 backdrop-blur-sm"
+                      className="backdrop-blur-sm"
                     >
                       {service.category}
                     </Badge>
                   </div>
                   <div className="absolute top-4 right-4">
-                    <div className="flex items-center bg-background/80 text-foreground rounded-full px-2 py-1 text-xs backdrop-blur-sm">
+                    <div className="flex items-center text-foreground rounded-full px-2 py-1 text-xs backdrop-blur-sm">
                       <Clock className="w-3 h-3 mr-1" />
                       <span>{service.duration}</span>
                     </div>
@@ -94,7 +94,7 @@ const ServiceGrid = ({ services }: ServiceGridProps) => {
                       href={`/services/${service.slug || service.id}`}
                       className="w-full"
                     >
-                      <Button className="w-full group bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary">
+                      <Button className="w-full group hover:from-primary/90 hover:to-primary">
                         Book Now
                         <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
