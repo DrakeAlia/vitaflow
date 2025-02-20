@@ -24,7 +24,7 @@ const ServiceFilter = ({
 
   return (
     <>
-      <Card className="sticky top-24 border overflow-hidden">
+      <Card className="relative md:sticky md:top-24 border overflow-hidden">
         <div className="absolute inset-0 z-0"></div>
         <CardContent className="p-6 relative z-10">
           <div className="space-y-6">
@@ -61,9 +61,9 @@ const ServiceFilter = ({
         </CardContent>
       </Card>
 
-      <Card className="sticky top-[calc(24rem+1.5rem)] border bg-gradient-to-br from-background to-muted/10">
+      <Card className="relative mt-8 md:sticky md:top-[calc(24rem+2rem)] border bg-gradient-to-br from-background to-muted/10">
         <CardContent className="p-6">
-          <h4 className="text-md font-medium mb-4">At a Glance</h4>
+          <h4 className="text-md font-semibold mb-4">At a Glance</h4>
           <div className="space-y-3">
             <div className="flex justify-between items-center text-sm">
               <span className="text-muted-foreground">Available Services</span>

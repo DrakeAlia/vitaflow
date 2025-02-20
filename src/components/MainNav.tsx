@@ -7,15 +7,18 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { MoonIcon, SunIcon, Menu, Phone } from "lucide-react";
+import { MoonIcon, SunIcon, Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 
 import BookingPopover from "@/components/BookingPopover";
@@ -29,21 +32,22 @@ interface NavItemProps {
   href: string;
   children: React.ReactNode;
   mobile?: boolean;
+  active?: boolean;
 }
 
 const menuItems: MenuItem[] = [
-  { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 
-const NavItem = ({ href, children, mobile }: NavItemProps) => (
+const NavItem = ({ href, children, mobile, active }: NavItemProps) => (
   <NavigationMenuItem>
     <Button
       variant="ghost"
-      className={`w-full justify-start font-medium hover:text-primary transition-colors
-        ${mobile ? "text-lg p-4" : "px-3 py-2 hover:bg-transparent"}`}
+      className={`w-full justify-start font-medium transition-colors
+        ${mobile ? "text-lg p-4" : "px-3 py-2 hover:bg-transparent"}
+        ${active ? "text-primary" : "hover:text-primary"}`}
       asChild
     >
       <NavigationMenuLink href={href}>{children}</NavigationMenuLink>
@@ -51,28 +55,23 @@ const NavItem = ({ href, children, mobile }: NavItemProps) => (
   </NavigationMenuItem>
 );
 
-<BookingPopover buttonClassName="w-full" />;
-
-const MobileNav = () => (
+const MobileNav = ({ currentPath }: { currentPath: string }) => (
   <Sheet>
     <SheetTrigger asChild>
       <Button variant="ghost" size="icon" className="md:hidden">
         <Menu className="h-5 w-5" />
+        <span className="sr-only">Open menu</span>
       </Button>
     </SheetTrigger>
     <SheetContent side="right" className="p-0 flex flex-col">
       <div className="flex flex-col h-full">
         <SheetHeader className="p-4 border-b flex-none">
           <div className="flex items-center justify-between">
-            <SheetTitle className="text-xl font-bold text-primary">
-              VitaFlow
+            <SheetTitle>
+              <Link href="/" className="text-xl font-bold text-primary">
+                VitaFlow
+              </Link>
             </SheetTitle>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              asChild
-            ></Button>
           </div>
         </SheetHeader>
 
@@ -81,7 +80,12 @@ const MobileNav = () => (
             <NavigationMenu orientation="vertical">
               <NavigationMenuList className="flex flex-col">
                 {menuItems.map((item) => (
-                  <NavItem key={item.label} href={item.href} mobile>
+                  <NavItem
+                    key={item.label}
+                    href={item.href}
+                    mobile
+                    active={currentPath === item.href}
+                  >
                     {item.label}
                   </NavItem>
                 ))}
@@ -105,6 +109,7 @@ const MobileNav = () => (
 const MainNav = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -117,14 +122,21 @@ const MainNav = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <h1 className="text-2xl font-bold text-primary cursor-pointer">
+            <Link
+              href="/"
+              className="text-2xl font-bold text-primary hover:opacity-90 transition-opacity"
+            >
               VitaFlow
-            </h1>
+            </Link>
 
             <NavigationMenu className="hidden md:block">
               <NavigationMenuList className="flex gap-2">
                 {menuItems.map((item) => (
-                  <NavItem key={item.label} href={item.href}>
+                  <NavItem
+                    key={item.label}
+                    href={item.href}
+                    active={pathname === item.href}
+                  >
                     {item.label}
                   </NavItem>
                 ))}
@@ -144,13 +156,14 @@ const MainNav = () => {
               ) : (
                 <MoonIcon className="h-5 w-5" />
               )}
+              <span className="sr-only">Toggle theme</span>
             </Button>
 
             <div className="hidden md:block">
               <BookingPopover />
             </div>
 
-            <MobileNav />
+            <MobileNav currentPath={pathname} />
           </div>
         </div>
       </div>
