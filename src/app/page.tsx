@@ -379,6 +379,57 @@ const HomePage = () => {
           </div>
         </section>
 
+        <motion.section
+          className="py-12 md:py-20 "
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Badge variant="outline" className="mb-4">
+                  Our Story
+                </Badge>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-foreground">
+                  About VitaFlow
+                </h2>
+                <Separator className="my-4" />
+                <p className="text-lg text-muted-foreground mb-6">
+                  Founded in 2009, VitaFlow has grown from a small neighborhood
+                  pharmacy to a comprehensive healthcare provider serving
+                  thousands of patients across the region.
+                </p>
+                <Link href="/about">
+                  <Button className="group">
+                    Learn More About Us
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="relative h-64 md:h-96 rounded-lg overflow-hidden bg-muted"
+              >
+                <Image
+                  src="/images/about/pharmacy-team.png"
+                  alt="Our pharmacy team"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
+            </div>
+          </div>
+        </motion.section>
+
         {/* Consultation Section */}
         <section className="py-12 md:py-20 bg-background">
           <div className="container mx-auto px-4">

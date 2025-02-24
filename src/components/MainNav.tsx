@@ -7,7 +7,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { MoonIcon, SunIcon, Menu, Phone, X } from "lucide-react";
+import { MoonIcon, SunIcon, Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
@@ -18,7 +18,6 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  SheetClose,
 } from "@/components/ui/sheet";
 
 import BookingPopover from "@/components/BookingPopover";
