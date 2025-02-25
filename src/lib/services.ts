@@ -88,7 +88,8 @@ export const services: Service[] = [
     id: "vaccination-services",
     title: "Vaccination Services",
     slug: "vaccination-services",
-    description: "Protect yourself and your loved ones with our vaccination services",
+    description:
+      "Protect yourself and your loved ones with our vaccination services",
     longDescription:
       "Our vaccination services offer a wide range of vaccines to protect against common diseases, including influenza, pneumonia, and shingles. Stay up to date on your immunizations with our convenient and affordable service.",
     category: "wellness",

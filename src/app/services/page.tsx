@@ -45,7 +45,7 @@ export default function ServicesPage() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              <span className="text-primary">Starts Here</span>
+              <span className="text-primary">It Starts Here</span>
             </motion.h1>
             <motion.p
               className="text-lg md:text-xl font-semibold text-white drop-shadow-lg max-w-2xl mx-auto"

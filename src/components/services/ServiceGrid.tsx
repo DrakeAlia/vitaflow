@@ -49,13 +49,10 @@ const ServiceGrid = ({ services }: ServiceGridProps) => {
                     }
                     alt={service.title}
                     fill
-                    className="object-cover object-center opacity-90 group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
-                    <Badge
-                      variant="secondary"
-                      className="backdrop-blur-sm"
-                    >
+                    <Badge variant="secondary" className="backdrop-blur-sm">
                       {service.category}
                     </Badge>
                   </div>

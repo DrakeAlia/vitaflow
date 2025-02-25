@@ -53,6 +53,15 @@ const HomePage = () => {
     },
   };
 
+  React.useEffect(() => {
+    // Use setTimeout to ensure this runs after all components have mounted
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }, 0);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const staggerChildren = {
     hidden: { opacity: 0 },
     visible: {
@@ -122,7 +131,7 @@ const HomePage = () => {
               src="/images/hero/storefront-1.png"
               alt="Modern pharmacy interior"
               fill
-              sizes="(max-width: 768px) 100vw, 300px"
+              sizes="(max-width: 768px) 100vw, 50vw"
               priority
               className="object-cover rounded-lg"
             />
@@ -310,8 +319,9 @@ const HomePage = () => {
                             src={service.image}
                             alt={service.title}
                             fill
-                            sizes="(max-width: 768px) 100vw, 300px"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="object-cover"
+                            priority={index === 0}
                           />
                         </div>
                         <CardHeader className="flex-none">
@@ -422,10 +432,10 @@ const HomePage = () => {
                 className="relative h-64 md:h-96 rounded-lg overflow-hidden bg-muted"
               >
                 <Image
-                  src="/images/about/pharmacy-team.png"
+                  src="/images/team/meet-team.png"
                   alt="Our pharmacy team"
                   fill
-                  sizes="(max-width: 768px) 100vw, 300px"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                 />
               </motion.div>
@@ -486,7 +496,7 @@ const HomePage = () => {
                   src="/images/testimonials/staff-1.png"
                   alt="Pharmacist consultation"
                   fill
-                  sizes="(max-width: 768px) 100vw, 300px"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover"
                 />
               </motion.div>

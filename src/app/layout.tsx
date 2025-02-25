@@ -16,6 +16,13 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "VitaFlow - Pharmacy",
   description: "VitaFlow is a modern pharmacy that makes your life easier.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: [
+      { url: "/apple-icon.png" },
+      { url: "/apple-icon-180x180.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
