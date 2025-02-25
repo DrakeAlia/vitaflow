@@ -26,6 +26,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface IconProps {
   className?: string;
@@ -35,7 +37,7 @@ export default function AboutPage() {
   return (
     <>
       <MainNav />
-      <main className="min-h-screen pt-20 pb-20">
+      <main className="min-h-screen pt-16 pb-20">
         {" "}
         <motion.section
           className="py-16 md:py-24 relative"
@@ -45,20 +47,21 @@ export default function AboutPage() {
         >
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/about/about-hero.png"
+              src="/images/storefront-1.png"
               alt="About our pharmacy"
               fill
-              className="object-cover opacity-50"
+              sizes="(max-width: 768px) 100vw, 300px"
+              className="object-cover"
               priority
             />
             <div className="absolute inset-0 "></div>
           </div>
           <div className="container mx-auto px-4 text-center relative z-10">
-            <Badge variant="outline" className="mb-4">
+            {/* <Badge variant="outline" className="mb-4">
               Our Story
-            </Badge>
+            </Badge> */}
             <motion.h1
-              className="text-4xl md:text-5xl font-bold mb-4 text-foreground drop-shadow-lg"
+              className="text-4xl md:text-5xl text-white font-bold mb-4 "
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -66,7 +69,7 @@ export default function AboutPage() {
               About <span className="text-primary">VitaFlow</span>
             </motion.h1>
             <motion.p
-              className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto"
+              className="text-lg md:text-xl font-semibold text-white max-w-2xl mx-auto"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -127,9 +130,10 @@ export default function AboutPage() {
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
                 <Image
-                  src="/images/about/pharmacy-team.png"
+                  src="/images/team/meet-team.png"
                   alt="Our pharmacy team"
                   fill
+                  sizes="(max-width: 768px) 100vw, 300px"
                   className="object-cover"
                 />
               </motion.div>
@@ -149,6 +153,52 @@ export default function AboutPage() {
             </div>
           </CardContent>
         </Card>
+        <section className="py-16 ">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <motion.div
+                className="p-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-4xl font-bold text-primary mb-2">15+</h3>
+                <p className="text-muted-foreground">Years of Service</p>
+              </motion.div>
+              <motion.div
+                className="p-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-4xl font-bold text-primary mb-2">5,000+</h3>
+                <p className="text-muted-foreground">Happy Patients</p>
+              </motion.div>
+              <motion.div
+                className="p-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-4xl font-bold text-primary mb-2">12</h3>
+                <p className="text-muted-foreground">Expert Staff</p>
+              </motion.div>
+              <motion.div
+                className="p-6"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-4xl font-bold text-primary mb-2">3</h3>
+                <p className="text-muted-foreground">Locations</p>
+              </motion.div>
+            </div>
+          </div>
+        </section>
         <Separator className="mx-auto my-8" />
         <section className="py-12 ">
           <div className="container mx-auto px-4">
@@ -194,7 +244,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-        <section className="py-12 bg-muted/5">
+        <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
               <Badge variant="outline" className="mb-2">
@@ -203,50 +253,115 @@ export default function AboutPage() {
               <h2 className="text-3xl font-bold">Timeline</h2>
               <Separator className="my-4 mx-auto w-16" />
             </div>
-            <div className="max-w-md mx-auto">
-              <ScrollArea className="h-72 rounded border p-4">
-                <div className="space-y-4 pr-4">
-                  <div>
-                    <h4 className="text-sm font-medium">2009</h4>
+            <div className="max-w-xl mx-auto">
+              {" "}
+              <ScrollArea className="h-96 rounded border px-5 py-4">
+                <div className="space-y-8 pr-4 pb-4 relative">
+                  {/* Timeline vertical line */}
+                  <div className="absolute left-3 top-0 bottom-0 w-[2px] bg-primary/20" />
+
+                  {/* 2009 */}
+                  <motion.div
+                    className="pb-2 pl-10 relative hover:bg-accent/30 rounded-md transition-colors p-2 -ml-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    {/* Bullet point */}
+                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <h4 className="text-md font-semibold text-primary">2009</h4>
                     <p className="text-sm text-muted-foreground">
                       VitaFlow was founded as a small community pharmacy.
                     </p>
-                  </div>
-                  <Separator />
-                  <div>
-                    <h4 className="text-sm font-medium">2012</h4>
+                  </motion.div>
+
+                  {/* 2012 */}
+                  <motion.div
+                    className="pb-2 pl-10 relative hover:bg-accent/30 rounded-md transition-colors p-2 -ml-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <h4 className="text-md font-semibold text-primary">2012</h4>
                     <p className="text-sm text-muted-foreground">
                       Expanded services to include wellness consultations.
                     </p>
-                  </div>
-                  <Separator />
-                  <div>
-                    <h4 className="text-sm font-medium">2015</h4>
+                  </motion.div>
+
+                  {/* 2015 */}
+                  <motion.div
+                    className="pb-2 pl-10 relative hover:bg-accent/30 rounded-md transition-colors p-2 -ml-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <h4 className="text-md font-semibold text-primary">2015</h4>
                     <p className="text-sm text-muted-foreground">
                       Opened our second location.
                     </p>
-                  </div>
-                  <Separator />
-                  <div>
-                    <h4 className="text-sm font-medium">2018</h4>
+                  </motion.div>
+
+                  {/* 2018 */}
+                  <motion.div
+                    className="pb-2 pl-10 relative hover:bg-accent/30 rounded-md transition-colors p-2 -ml-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <h4 className="text-md font-semibold text-primary">2018</h4>
                     <p className="text-sm text-muted-foreground">
                       Launched our digital health platform.
                     </p>
-                  </div>
-                  <Separator />
-                  <div>
-                    <h4 className="text-sm font-medium">2020</h4>
+                  </motion.div>
+
+                  {/* 2020 */}
+                  <motion.div
+                    className="pb-2 pl-10 relative hover:bg-accent/30 rounded-md transition-colors p-2 -ml-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.4 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <h4 className="text-md font-semibold text-primary">2020</h4>
                     <p className="text-sm text-muted-foreground">
                       Introduced virtual consultations and telehealth services.
                     </p>
-                  </div>
-                  <Separator />
-                  <div>
-                    <h4 className="text-sm font-medium">2023</h4>
+                  </motion.div>
+
+                  {/* 2023 */}
+                  <motion.div
+                    className="pb-2 pl-10 relative hover:bg-accent/30 rounded-md transition-colors p-2 -ml-2"
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <h4 className="text-md font-semibold text-primary">2023</h4>
                     <p className="text-sm text-muted-foreground">
                       Received regional award for healthcare excellence.
                     </p>
-                  </div>
+                  </motion.div>
                 </div>
               </ScrollArea>
             </div>
@@ -278,6 +393,7 @@ export default function AboutPage() {
                               src={member.image}
                               alt={member.name}
                               fill
+                              sizes="(max-width: 768px) 100vw, 300px"
                               className="object-cover"
                             />
                           </div>
@@ -300,11 +416,78 @@ export default function AboutPage() {
                           </div>
                         </HoverCardContent>
                       </HoverCard>
+
+                      <h3 className="font-semibold mt-2">{member.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {member.role}
+                      </p>
+                      <div className="flex justify-center space-x-3 mt-2">
+                        <button className="text-muted-foreground hover:text-primary transition-colors">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                          </svg>
+                        </button>
+                        <button className="text-muted-foreground hover:text-primary transition-colors">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                          </svg>
+                        </button>
+                      </div>
                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+        <section className="py-16 ">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold mb-4">
+              Ready to Experience the VitaFlow Difference?
+            </h2>
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Our team of healthcare professionals is ready to provide you with
+              personalized care tailored to your needs.
+            </p>
+            <Link href="/services">
+              <Button size="lg" className="rounded-full px-8">
+                View Our Services
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 ml-2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </Button>
+            </Link>
           </div>
         </section>
         <Separator className="mx-auto my-8" />
@@ -428,25 +611,25 @@ const teamMembers = [
     role: "Lead Pharmacist",
     description:
       "PharmD with 15+ years experience specializing in medication therapy management.",
-    image: "/images/team/pharmacist1.png",
+    image: "/images/team/sarah-johnson.png",
   },
   {
     name: "Michael Chen",
     role: "Clinical Pharmacist",
     description:
       "Specializes in chronic disease management and patient education.",
-    image: "/images/team/pharmacist2.png",
+    image: "/images/team/michael-chen.png",
   },
   {
     name: "Amara Patel",
     role: "Pharmacy Technician",
     description: "Certified technician with expertise in inventory management.",
-    image: "/images/team/tech1.png",
+    image: "/images/team/amara-patel.png",
   },
   {
     name: "James Wilson",
     role: "Health Consultant",
     description: "Nutritionist focused on integrative health approaches.",
-    image: "/images/team/consultant1.png",
+    image: "/images/team/james-wilson.png",
   },
 ];

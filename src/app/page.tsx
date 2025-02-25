@@ -122,6 +122,7 @@ const HomePage = () => {
               src="/images/hero/storefront-1.png"
               alt="Modern pharmacy interior"
               fill
+              sizes="(max-width: 768px) 100vw, 300px"
               priority
               className="object-cover rounded-lg"
             />
@@ -309,6 +310,7 @@ const HomePage = () => {
                             src={service.image}
                             alt={service.title}
                             fill
+                            sizes="(max-width: 768px) 100vw, 300px"
                             className="object-cover"
                           />
                         </div>
@@ -423,6 +425,7 @@ const HomePage = () => {
                   src="/images/about/pharmacy-team.png"
                   alt="Our pharmacy team"
                   fill
+                  sizes="(max-width: 768px) 100vw, 300px"
                   className="object-cover"
                 />
               </motion.div>
@@ -483,6 +486,7 @@ const HomePage = () => {
                   src="/images/testimonials/staff-1.png"
                   alt="Pharmacist consultation"
                   fill
+                  sizes="(max-width: 768px) 100vw, 300px"
                   className="object-cover"
                 />
               </motion.div>

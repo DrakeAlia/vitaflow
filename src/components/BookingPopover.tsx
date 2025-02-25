@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Calendar, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   Popover,
   PopoverContent,
@@ -22,6 +23,12 @@ const BookingPopover = ({
   showIcon = true,
 }: BookingPopoverProps) => {
   const [bookingStep, setBookingStep] = React.useState(0);
+  const router = useRouter();
+  const [consultationType, setConsultationType] = React.useState("in-person");
+
+  const handleConfirmBooking = () => {
+    router.push(`/appointments?type=${consultationType}`);
+  };
 
   return (
     <Popover>
@@ -48,7 +55,10 @@ const BookingPopover = ({
                 <Button
                   variant="outline"
                   className="justify-start"
-                  onClick={() => setBookingStep(1)}
+                  onClick={() => {
+                    setConsultationType("in-person"); // Update this line
+                    setBookingStep(1);
+                  }}
                 >
                   <Calendar className="mr-2 h-4 w-4" />
                   In-Person
@@ -56,7 +66,10 @@ const BookingPopover = ({
                 <Button
                   variant="outline"
                   className="justify-start"
-                  onClick={() => setBookingStep(1)}
+                  onClick={() => {
+                    setConsultationType("virtual"); // Update this line
+                    setBookingStep(1);
+                  }}
                 >
                   Virtual
                 </Button>
@@ -97,7 +110,8 @@ const BookingPopover = ({
                 </p>
               </div>
               <div className="grid gap-2">
-                <Button>Confirm Booking</Button>
+                {/* Update this button to use the new handler */}
+                <Button onClick={handleConfirmBooking}>Confirm Booking</Button>
                 <Button variant="outline" onClick={() => setBookingStep(1)}>
                   Back
                 </Button>
