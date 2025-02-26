@@ -52,6 +52,7 @@ function ServiceContent({ service }: ServiceContentProps) {
                 src={service.image}
                 alt={service.title}
                 fill
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 80vw"
                 className="object-cover"
               />
             </div>

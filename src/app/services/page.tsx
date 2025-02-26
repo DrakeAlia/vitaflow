@@ -34,6 +34,7 @@ export default function ServicesPage() {
               alt="Healthcare services"
               fill
               className="object-cover "
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 80vw"
               priority
             />
             <div className="absolute inset-0 "></div>

@@ -48,7 +48,9 @@ const ServiceGrid = ({ services }: ServiceGridProps) => {
                       service.image || `/images/services/${service.slug}.png`
                     }
                     alt={service.title}
+                    sizes="(max-width: 640px) 100vw, (max-width: 768px) 90vw, 80vw"
                     fill
+                    priority={rowIndex === 0 && index === 0}
                     className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
