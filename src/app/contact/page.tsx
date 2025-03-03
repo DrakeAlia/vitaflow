@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import MainNav from "@/components/MainNav";
-import { Badge } from "@/components/ui/badge";
+// import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -23,7 +23,7 @@ export default function ContactPage() {
   return (
     <>
       <MainNav />
-      <main className="min-h-screen pt-20 pb-20">
+      <main className="min-h-screen pt-16 pb-20">
         <motion.section
           className="py-16 md:py-24 relative"
           initial={{ opacity: 0 }}
@@ -32,20 +32,21 @@ export default function ContactPage() {
         >
           <div className="absolute inset-0 z-0">
             <Image
-              src="/images/contact/contact-hero.png"
+              src="/images/contact/contact-us.png"
               alt="Contact VitaFlow"
               fill
-              className="object-cover opacity-50"
+              sizes="(max-width: 768px) 100vw, 300px"
+              className="object-cover object-[center_30%]"
               priority
             />
             <div className="absolute inset-0"></div>
           </div>
           <div className="container mx-auto px-4 text-center relative z-10">
-            <Badge variant="outline" className="mb-4">
+            {/* <Badge variant="outline" className="mb-4">
               Get In Touch
-            </Badge>
+            </Badge> */}
             <motion.h1
-              className="text-4xl md:text-5xl font-bold mb-4 text-foreground drop-shadow-lg"
+              className="text-4xl md:text-5xl text-white font-bold mb-4"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -53,7 +54,7 @@ export default function ContactPage() {
               Contact <span className="text-primary">Us</span>
             </motion.h1>
             <motion.p
-              className="text-lg md:text-xl text-foreground/80 max-w-2xl mx-auto"
+              className="text-lg md:text-xl font-semibold text-white max-w-2xl mx-auto"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
